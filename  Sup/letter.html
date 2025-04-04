@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Letter  </title>
+    <style>
+        /* Basic Reset & Body Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #EAE0F5; /* Very light lavender background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            perspective: 1000px; /* Add perspective for 3D flap rotation */
+            overflow: hidden; /* Hide scrollbars when letter is full screen */
+        }
+
+        /* Envelope Wrapper - main container and click target */
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        /* The Envelope Structure */
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background-color: #C8A2C8; /* Main Lavender color */
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Slightly softer shadow */
+            transition: all 0.6s ease-in-out;
+            overflow: hidden;
+        }
+        .from{
+            text-align: left;
+        }
+        /* Envelope Body Lines (Simulated Seams) */
+        .envelope::before,
+        .envelope::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            z-index: 1; /* Below the flap */
+        }
+
+        .envelope::before { /* Left Triangle */
+            left: 0;
+            border-width: 100px 0 100px 150px; /* h=100, w=150 */
+            border-color: transparent transparent transparent #A080A0; /* Darker lavender shade for seam */
+        }
+
+        .envelope::after { /* Right Triangle */
+            right: 0;
+            border-width: 100px 150px 100px 0; /* h=100, w=150 */
+            border-color: transparent #A080A0 transparent transparent; /* Darker lavender shade for seam */
+        }
+
+
+        /* Envelope Flap */
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px; /* Half the envelope height */
+            background-color: #C8A2C8; /* Same as envelope */
+            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+            transform-origin: top center;
+            transition: transform 0.6s ease-in-out, z-index 0s 0.3s; /* Delay z-index change */
+            z-index: 3; /* Above letter initially */
+        }
+
+        /* Letter Styling */
+        .letter {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            height: calc(100% - 10px);
+            background-color: #FAF5FF; /* Very pale lavender-white paper */
+            border: 1px solid #e0e0e0; /* Light grey border */
+            z-index: 2; /* Below flap initially */
+            padding: 20px;
+            font-family: 'Georgia', serif; /* Changed font for a slightly more elegant feel */
+            line-height: 1.6;
+            color: #4B0082; /* Indigo / Dark Purple text */
+            overflow: hidden;
+            opacity: 0.8;
+            transform: translateY(80px) scale(0.95);
+            transition: all 0.6s ease-in-out;
+            visibility: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05) inset;
+        }
+
+        .letter h2 {
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            color: #8A2BE2; /* BlueViolet for heading */
+            text-align: center;
+            font-family: 'Garamond', serif; /* Another classic font */
+        }
+
+        .letter p {
+            margin-bottom: 10px;
+            font-size: 0.9em;
+             color: #5A4F63; /* Muted dark purple/grey for main text */
+        }
+        .letter .date {
+            text-align: right;
+            font-size: 0.8em;
+            margin-bottom: 20px;
+            color: #9370DB; /* Medium Purple for date */
+        }
+        .letter .signature {
+            margin-top: 25px;
+            text-align: right;
+            font-style: italic;
+            font-family: 'Brush Script MT', cursive;
+            font-size: 1.6em; /* Slightly larger */
+            color: #8A2BE2; /* BlueViolet for signature */
+        }
+
+        /* --- OPEN STATE --- */
+
+        .envelope-wrapper.open .envelope {
+             box-shadow: 0 10px 25px rgba(80, 50, 100, 0.2); /* Purple-ish shadow */
+        }
+
+        .envelope-wrapper.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+            transition: transform 0.6s ease-in-out, z-index 0s 0s;
+        }
+
+        .envelope-wrapper.open .letter {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            width: auto;
+            height: auto;
+            z-index: 100;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            overflow-y: auto;
+            padding: 40px;
+            visibility: visible;
+             box-shadow: 0 5px 30px rgba(80, 50, 100, 0.25); /* Purple-ish shadow when open */
+             border: 1px solid #D8BFD8; /* Light purple border when open */
+        }
+
+        /* Make sure body scroll is disabled when letter is open */
+        body.letter-open {
+             overflow: hidden;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="envelope-wrapper" id="envelopeWrapper">
+        <div class="envelope">
+            <div class="letter">
+                <!-- Letter Content Goes Here -->
+                <p class="date">November 27th, 2025</p>
+                <h2>My Dearest Kanishu,</h2>
+                <p>Many many happy returns of the day my lovely angel. You have officialy become a major now my dear . 
+                    Finally badi ladki bangayi . Fir bhi mereliye eak coti ladki hi ho tu . Itna pyar kiya teresaath
+                    ki abtak mere zindagi mai itna pyar kisise nahi kiya maine . You are literally the purest soul 
+                    in this entire universe yarrrrr . Tere liye harroj dua mangta hu bina boole . I still remenber
+                    the first time we texted each other . Already vo sb cheeze rewing kar chuka hu ussss din (I really 
+                    hope you remember everything that I told you in that 1 hour.) . Sab kuch yaad hai muje
+                    every single movement we had together I remember it . You are my dream girl yarrr . I am lucky
+                    to have a woman like you . Bagwan ne tuje fursat se banaya hai . I feel jelous of the ppl who get to 
+                    see you everyday . Isiliye bolta hu ki jab bhi tu bahar jati ho pair ke neeche kajal lagake ja .
+                    Jab bhi aakhe band karta hu bas teri hi image samne aajati hai . Tere liye bolne ke liye baate kafi
+                    nahi hai . Words can't express how delightful and elegent you are . Kitabe bhi kafi nahi hai 
+                    Aur ky hi bolu tere bare mai almost sab kuch janti ho . Aur bhi bohot sare hai . I will tell
+                    the remaining when we meet IRL . Vo din hamare dono zindagi ke best and the most memorible day hoga.
+                    I really waiting for that day . Hope the same goes with you toooo . Tere liye hi hindi films dekne 
+                    shuru kiya and hindi ke gaane sunne bhi . IK aur bhi bohot improve hona hai muje but fir bhi I am getting
+                    a lil bit better day by day  I guess .  And pehele hi bol raha hu I am very sorry if I may not be 
+                    available till your bday . Bas just in case bola mai . Meri rani ho yar tu . Since I met you in my life
+                    you have thought me a lot of things . You are literally everything for me in my life . Tere bina kuch
+                    nahi hai mere zindagi mai . You are my only purpose of living . Ab tak bohot baar bol chuka hu fir bhi bolra 
+                    sunle kuch nahi hoga . Tere helth ka bohoooot chinta hota hai mujhe harroj 
+                    I am so sorry that mai IRL tera khayal nahi rakpara . Jab ham livin mai hote hai tab deklena kaise khayal
+                    rakta hu and all . You will be amazed like hell . And shaadi ke baad tho alag hi matter hai . Bas dekti rahajaoge . 
+                    Our life will be really beautiful . I promise you that I will never ever leave in in your problems and 
+                    I will always be available for you in whatever way you need me I will always be available 
+                    for  you . Hamesha saath mai hi rahunga . Kabhi bhi akhela chorke nahi jaunga mai tuje kabhi bhi nahi . 
+                    Jyada nahi likpaya iss baar I guess I am so sorry for that . Once again happy 
+                    birthday meri ladki . I will always love you forever and ever and don't you dare think that I will 
+                    hate you . Not even in your dreams . Ye sab bakwas baate kabhi bhi nahi sochna . Jaabtak mai zinda hu 
+                    tujhe kuch nahi hone doonga kuch bhi nahi . I will protect you from everything and everyone .
+                    Even if the whole world is against you I will be against the whole world . Sab log tere samne jhukna chahiye. 
+                 </p>
+            <div class = "From">
+                <h4>FROM........</h4>
+                <h5>Sarvan , Gadha , Sarvu , Idiot Jo bhi tum bolti vo sab</h5>
+            </div>     
+                 
+            </div>
+            <div class="envelope-flap"></div>
+            <!-- Envelope Body is implied by the main .envelope div and its ::before/::after pseudo-elements -->
+        </div>
+    </div>
+
+    <script>
+        // Get the envelope wrapper element
+        const envelopeWrapper = document.getElementById('envelopeWrapper');
+        const bodyElement = document.body;
+
+        // Add a click event listener
+        envelopeWrapper.addEventListener('click', () => {
+            // Toggle the 'open' class on the wrapper
+            envelopeWrapper.classList.toggle('open');
+
+            // Toggle a class on the body to prevent scrolling when letter is open
+             bodyElement.classList.toggle('letter-open', envelopeWrapper.classList.contains('open'));
+
+            // --- Optional: Accessibility Improvement ---
+            // const isOpen = envelopeWrapper.classList.contains('open');
+            // envelopeWrapper.setAttribute('aria-expanded', isOpen);
+            // envelopeWrapper.setAttribute('aria-label', isOpen ? 'Close letter' : 'Open letter');
+        });
+
+    </script>
+
+</body>
+</html>

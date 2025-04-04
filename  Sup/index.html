@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Birthday Princess</title>  
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+                        body {
+                    background-color: #fff0f5; /* Light pink background */
+                    display: flex;
+                    flex-direction: column; /* Stack marquee and buttons vertically */
+                    align-items: center; /* Center items horizontally */
+                    min-height: 100vh; /* Use at least full viewport height */
+                    padding: 40px 20px; /* Add some padding around */
+                    box-sizing: border-box; /* Include padding in height calculation */
+                    font-family: 'Poppins', sans-serif; /* Set a default modern font */
+                }
+
+                 
+                marquee {
+                    margin-top: 20px;  
+                    padding: 20px;
+                    border-radius: 20px;
+                    background: linear-gradient(to right, #ffccff, #cc99ff);
+                    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+                    width: 80%;
+                    font-size: 50px;
+                    font-weight: bold;
+                }
+
+                .bday {
+                    font-size: 50px;
+                    font-family: "Great Vibes", cursive;
+                    font-weight: bold;
+                    color: white;
+                    text-shadow: 4px 4px 8px rgba(255, 105, 180, 0.8);  
+                    padding-top: 20px;
+                }
+
+                /* --- Button Styles --- */
+
+                .button-container {
+                    display: flex;
+                    justify-content: center; /* Center buttons horizontally */
+                    align-items: center; /* Align buttons vertically */
+                    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+                    gap: 25px; /* Space between buttons */
+                    width: 100%; /* Use full width for centering */
+                    padding: 20px 0; /* Add some vertical padding */
+                }
+
+                .button-container button {
+                    font-size: clamp(16px, 3vw, 20px); /* Responsive font size */
+                    font-weight: 600; /* Poppins bold */
+                    font-family: 'Poppins', sans-serif; /* Cleaner font for buttons */
+                    padding: 14px 35px; /* Button padding */
+                    border: none;
+                    border-radius: 50px; /* Pill shape */
+                    background: linear-gradient(135deg, #ff66b2, #ff3399); /* Angle gradient */
+                    color: white;
+                    box-shadow: 0px 4px 12px rgba(255, 20, 147, 0.4); /* Refined shadow */
+                    cursor: pointer;
+                    transition: transform 0.25s ease, box-shadow 0.25s ease; /* Smooth transition */
+                    animation: pulse 2s infinite ease-in-out; /* More subtle pulse */
+                    outline: none; /* Remove default browser outline */
+                    letter-spacing: 0.5px; /* Slight letter spacing */
+                }
+
+                /* Add subtle difference for each button's animation delay */
+                .button-container button:nth-child(1) {
+                    animation-delay: 0s;
+                }
+                .button-container button:nth-child(2) {
+                    animation-delay: 0.2s;
+                }
+                .button-container button:nth-child(3) {
+                    animation-delay: 0.4s;
+                }
+
+
+                .button-container button:hover {
+                    transform: translateY(-4px) scale(1.05); /* Lift and slightly scale */
+                    box-shadow: 0px 8px 20px rgba(255, 20, 147, 0.6); /* Enhanced shadow on hover */
+                }
+
+                .button-container button:active {
+                    transform: translateY(-1px) scale(0.98); /* Press down effect */
+                    box-shadow: 0px 3px 10px rgba(255, 20, 147, 0.5); /* Shadow during press */
+                    animation: none; /* Pause pulse on click */
+                }
+
+                /* Subtle pulsing animation */
+                @keyframes pulse {
+                    0% {
+                        transform: scale(1);
+                        box-shadow: 0px 4px 12px rgba(255, 20, 147, 0.4);
+                    }
+                    50% {
+                        transform: scale(1.03);
+                        box-shadow: 0px 6px 18px rgba(255, 20, 147, 0.55);
+                    }
+                    100% {
+                        transform: scale(1);
+                        box-shadow: 0px 4px 12px rgba(255, 20, 147, 0.4);
+                    }
+                }
+
+    </style>
+ 
+</head>
+<body>
+    <marquee direction="Right" scrollamount="10">
+        <div class="bday">
+            💖 HAPPY BIRTHDAY MY KANISHU 💝
+        </div>
+    </marquee>
+    <div class="button-container">
+        <button onclick="window.location.href='heart.html'">
+            💘 CLICKUUUU 💓
+        </button>
+        <button onclick="window.location.href='flower.html'">
+             💝 SURPRISEUUUU 💕
+        </button>
+        <button onclick="window.location.href='letter.html'">
+            🎂 LETTERUUUU 🎉
+        </button>
+    </div>
+
+    <!-- Removed script.js link as it wasn't provided/used -->
+</body>
+</html>

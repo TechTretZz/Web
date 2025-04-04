@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Lub-Dub Animation</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffebf0;
+            flex-direction: column;
+        }
+        .heart {
+            width: 150px;
+            height: 150px;
+            background-color: #ff99aa;
+            position: relative;
+            transform: rotate(-45deg);
+            animation: lubdub 1.5s infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .heart::before,
+        .heart::after {
+            content: '';
+            width: 150px;
+            height: 150px;
+            background-color: #ff99aa;
+            border-radius: 50%;
+            position: absolute;
+        }
+        .heart::before {
+            top: -75px;
+            left: 0;
+        }
+        .heart::after {
+            left: 75px;
+            top: 0;
+        }
+        
+        @keyframes lubdub {
+            0% { transform: scale(1) rotate(-45deg); }
+            30% { transform: scale(1.2) rotate(-45deg); }
+            50% { transform: scale(1) rotate(-45deg); }
+            70% { transform: scale(1.2) rotate(-45deg); }
+            100% { transform: scale(1) rotate(-45deg); }
+        }
+        
+        .message {
+            position: absolute;
+            background-color: #e6ccff;
+            padding: 18px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            font-family:"Baloo", sans-serif;
+            color: #e45a94;
+            display: none;
+            top: 40%; 
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .click-text {
+            margin-top: 80px;
+            font-size: 18px;
+            font-weight: bold;
+            font-family: 'Pacifico', cursive;
+            color: #e03cc0;
+        }
+    </style>
+    <script>
+        function toggleMessage() {
+            var msg = document.getElementById("message");
+            msg.style.display = msg.style.display === "none" || msg.style.display === "" ? "block" : "none";
+        }
+    </script>
+</head>
+<body>
+    <div class="heart" onclick="toggleMessage()"></div>
+    <div id="message" class="message"> BILLU 💓 SARVU</div>
+    <div class="click-text">Click this heart !!!!</div>
+</body>
+</html>
